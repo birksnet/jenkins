@@ -10,12 +10,12 @@ pipeline {
             steps {
                 echo "Coning repositore Github ${env.BUILD_ID} on ${env.JENKINS_URL}"
             }
-             
+            sh 'ls -la '
         }
 
         stage('Sync master') {
             steps {
-                git poll
+                echo 'um teste' 
             }
         }
 
