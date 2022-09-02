@@ -9,13 +9,13 @@ pipeline {
         stage('Checkout Code') {
             steps {
                 echo "Coning repositore Github ${env.BUILD_ID} on ${env.JENKINS_URL}"
+                
             }
-            sh 'ls -la '
         }
 
         stage('Sync master') {
             steps {
-                echo 'um teste' 
+                sh 'ls -la ' 
             }
         }
 
