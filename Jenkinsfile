@@ -9,14 +9,6 @@ pipeline {
         stage('Checkout Code') {
             steps {
                 echo "Coning repositore Github ${env.BUILD_ID} on ${env.JENKINS_URL}"
-                checkout([
-                        $class: 'GitSCM', 
-                        branches: [[name: '*/master']], 
-                        doGenerateSubmoduleConfigurations: false, 
-                        extensions: [[$class: 'CleanCheckout']], 
-                        submoduleCfg: [], 
-                        userRemoteConfigs: [[credentialsId: 'birksnet', url: 'https://github.com/Cupertino-Vestibulares/simulados.git']]
-                    ])
             }
              
         }
@@ -24,7 +16,6 @@ pipeline {
         stage('Sync master') {
             steps {
                 checkout scm
-                
             }
         }
 
