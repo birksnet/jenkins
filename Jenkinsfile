@@ -15,7 +15,7 @@ pipeline {
 
         stage('Sync master') {
             steps {
-                checkout scm
+                git pull
             }
         }
 
