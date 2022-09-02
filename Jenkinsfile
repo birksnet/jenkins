@@ -15,7 +15,7 @@ pipeline {
 
         stage('Sync master') {
             steps {
-                git pull
+                git poll
             }
         }
 
