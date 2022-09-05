@@ -8,34 +8,35 @@ pipeline {
         // Building and cloning 
         stage('Checkout Code') {
             steps {
-                echo "Coning repositore Github ${env.BUILD_ID} on ${env.JENKINS_URL}"
+                echo "Cloning repository Github ${env.BUILD_ID} on ${env.JENKINS_URL}"
                 
             }
         }
 
-        stage('Sync master') {
+        stage('Install Dependencies') {
             steps {
-                sh 'ls -la ' 
+                sh 'yarn install '
             }
         }
 
-        stage('Test') {
+        stage('Start Serve') {
             steps {
-                /* `make check` returns non-zero on test failures,
-                * using `true` to allow the Pipeline to continue nonetheless
-                */
-                echo " Testes "
-                //sh 'make check || true' 
-                //junit '**/target/*.xml' 
+                echo "Testes "
+                sh 'yarn serve'
             }
         }
         
-        stage('Building docker image'){
-            steps {
-                echo "Running ${env.BUILD_ID} on ${env.JENKINS_URL}"
-                //sh 'docker build cupertino'
-            }
+        stage ('Static Analysis') {
+                steps {
+                    sh ' ./node_modules/eslint/bin/eslint.js -f checkstyle src > eslint.xml'
+                }
+                post {
+                    always {
+                        recordIssues enabledForFailure: true, aggregatingResults: true, tool: checkStyle(pattern: 'eslint.xml')
+                    }
+                }
         }
+        
 
         
     }
